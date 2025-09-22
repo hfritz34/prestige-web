@@ -15,6 +15,7 @@ export type RatingResponse = {
     categoryId?: number;
     personalScore?: number;
     position?: number;
+    rankWithinAlbum?: number;
     albumId?: string;
     isNewRating: boolean;
 };
@@ -57,11 +58,11 @@ const useRating = () => {
         return await getMany<any>(`${baseEndpoint}/suggestions`);
     };
 
-    const saveRating = async (itemType: string, itemId: string, personalScore: number, categoryId: number): Promise<RatingResponse> => {
+    const saveRating = async (itemType: string, itemId: string, position: number, categoryId: number): Promise<RatingResponse> => {
         return await post<RatingResponse, any>({
             itemId,
             itemType,
-            personalScore,
+            position,
             categoryId
         }, `${baseEndpoint}/save`);
     };

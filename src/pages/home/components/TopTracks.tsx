@@ -21,12 +21,13 @@ const TopTracks: React.FC<TopTracksProps> = ({ topTracks }) => {
     throwOnError: false
   });
 
-  // Helper to get rating for a track
-  const getTrackRating = (trackId: string) => {
-    return Array.isArray(trackRatings) ? trackRatings.find(rating => rating.itemId === trackId)?.personalScore : undefined;
+  // Helper to get album position for a track
+  const getTrackPosition = (trackId: string) => {
+    return Array.isArray(trackRatings) ? trackRatings.find(rating => rating.itemId === trackId)?.rankWithinAlbum : undefined;
   };
 
   const handleTrackClick = (track: UserTrackResponse) => {
+    console.log("Navigating to track with data:", track);
     redirectToSongPage({
       trackId: track.track.id,
       trackName: track.track.name,
@@ -34,6 +35,8 @@ const TopTracks: React.FC<TopTracksProps> = ({ topTracks }) => {
       artistName: track.track.artists.map((artist) => artist.name).join(", "),
       totalTime: track.totalTime,
       imageUrl: track.track.album.images[0]?.url,
+      isPinned: track.isPinned,
+      prestigeTier: track.prestigeTier,
     });
   };
 
@@ -53,7 +56,8 @@ const TopTracks: React.FC<TopTracksProps> = ({ topTracks }) => {
               totalTime={track.totalTime}
               rank={index + 1}
               type="track"
-              ratingScore={getTrackRating(track.track.id)}
+              albumPosition={getTrackPosition(track.track.id)}
+              prestigeTier={track.prestigeTier}
               onClick={() => handleTrackClick(track)}
             />
           ))}

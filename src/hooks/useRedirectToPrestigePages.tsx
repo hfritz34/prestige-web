@@ -7,6 +7,8 @@ interface Track {
   artistName: string;
   totalTime: number;
   imageUrl: string;
+  isPinned?: boolean;
+  prestigeTier?: string;
 }
 
 interface Album {
@@ -15,6 +17,8 @@ interface Album {
   artistName: string;
   totalTime: number;
   imageUrl: string;
+  isPinned?: boolean;
+  prestigeTier?: string;
 }
 
 interface Artist {
@@ -22,6 +26,8 @@ interface Artist {
   artistName: string;
   totalTime: number;
   imageUrl: string;
+  isPinned?: boolean;
+  prestigeTier?: string;
 }
 
 const useRedirectToPrestigePages = () => {
